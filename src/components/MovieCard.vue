@@ -2,7 +2,7 @@
 	<div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-2">
     <div class="video-block">
       <div class="video-thumb position-relative thumb-overlay">
-        <RouterLink :to="{ name: 'MovieDetails', params: { id: movie.id }}"><img alt="" class="img-fluid" :src="`https://excellencetheme.com/templates/avastream/images/latest-aditions/01.jpg`"></RouterLink>
+        <RouterLink :to="{ name: 'MovieDetails', params: { id: movie.id }}"><img alt="" class="img-fluid" :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"></RouterLink>
         <div class="box-content">
           <ul class="icon">
             <li><a><i class="fas fa-play">W</i></a></li>
