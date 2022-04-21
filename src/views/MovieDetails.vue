@@ -1,26 +1,24 @@
 <template>
-  <div id="movie-details" class="container-fluid">
-    
-  </div>
+  <div id="movie-details" class="container-fluid"></div>
+  <MovieCard :movie="movie" />
 </template>
 
 <script>
-
+import MovieCard from "@/components/MovieCard.vue";
 export default {
-  data () {
+  components: { MovieCard },
+  data() {
     return {
       movie: {},
-      recommendations: []
-    }
+      recommendations: [],
+    };
   },
-  async mounted () {
-    const askedId = this.$route.params.id
-    this.movie = await this.$Movie.getMovie(askedId)
-    this.recommendations = await this.$Movie.getRecommendations(askedId)
-  }
-}
+  async mounted() {
+    const askedId = this.$route.params.id;
+    this.movie = await this.$Movie.getMovie(askedId);
+    this.recommendations = await this.$Movie.getRecommendations(askedId);
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

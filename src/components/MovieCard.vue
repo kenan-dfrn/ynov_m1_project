@@ -11,9 +11,7 @@
             <p class="time">2h 28m</p>
           </div>
           <p class="disc">{{ movie.overview }}</p>
-          <a href="https://www.imdb.com/title/tt4912910/" target="_blank"
-            >Read More</a
-          >
+          <a :href="`/movie/${movie.id}`">Read More</a>
           <div class="social-btn">
             <!-- WATCH TRAILER-->
             <button><i class="fas fa-play"></i> SEE TRAILER</button>
