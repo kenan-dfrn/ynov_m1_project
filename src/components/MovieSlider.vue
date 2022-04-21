@@ -19,7 +19,7 @@ export default {
   components: { MovieCard },
   props: {
     title: { type: String },
-    items: { type: String, default: [] },
+    items: { type: Array, default: [] },
   }
 }
 </script>
