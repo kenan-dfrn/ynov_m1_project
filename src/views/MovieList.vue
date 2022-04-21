@@ -1,25 +1,26 @@
 <template>
   <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
-  <MovieSlider title="Popular Movies" :items="movieList" />
-
+  <MovieSlider title="Popular Movies" :items="movieList.results" />
+  <Pagination @updatePage="updatePage($event)" :page="filters.page" :totalPages="movieList.total_pages"/>
   <input type="text" v-model="filters.title" />
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
 import MovieSlider from '@/components/MovieSlider.vue'
-
+import Pagination from '@/components/Pagination.vue'
 
 export default {
-  components: { MovieSlider, NavBar },
+  components: { MovieSlider, NavBar, Pagination },
   data () {
     return {
       filters: {
         title: "",
         genres: null,
+        page: 0
       },
       movieList: [],
-      genres:{},
+      genres: [],
       genreId: null
     };
   },
@@ -37,8 +38,11 @@ export default {
   },
   methods: {
      async searchByGenre (genreId) {
-        this.testapi = await this.$Movie.getMoviesByGenre(genreId)
+        this.movieList = await this.$Movie.getMoviesByGenre(genreId)
      },
+     updatePage (page) {
+       this.filters.page = page
+     }
   },
 };
 </script>
