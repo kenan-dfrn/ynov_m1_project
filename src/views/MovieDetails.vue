@@ -1,12 +1,14 @@
 <template>
-  <div id="movie-details" class="container-fluid"></div>
-  <MovieCard :movie="movie" />
+  <div>
+    <DetailSection :movie="movie" />
+  </div>
 </template>
 
 <script>
 import MovieCard from "@/components/MovieCard.vue";
+import DetailSection from "../components/DetailSection.vue";
 export default {
-  components: { MovieCard },
+  components: { MovieCard, DetailSection },
   data() {
     return {
       movie: {},
@@ -21,4 +23,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.btn {
+  background: #ff0000;
+  color: #fff;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 0;
+}
+</style>
