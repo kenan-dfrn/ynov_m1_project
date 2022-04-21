@@ -1,4 +1,5 @@
 <template>
+  <input type="text" v-model="filters.title" />
   <MovieSlider title="Similar Movies" :items="[]" />
   <MovieCard
     v-for="(movie, index) in testapi"
@@ -16,6 +17,7 @@ export default {
   data() {
     return {
       filters: {
+        title: "",
         genres: null,
       },
       testapi: [],
@@ -26,10 +28,10 @@ export default {
     console.log(this.testapi[0]);
   },
   watch: {
-    filter: async function () {
+    "filters.title": async function () {
       var movies = await this.$Movie.getPopularMovies();
       this.testapi = movies.filter((dt) =>
-        dt.title.match(new RegExp(this.filter, "i"))
+        dt.title.match(new RegExp(this.filters.title, "i"))
       );
     },
   },
