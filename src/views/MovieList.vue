@@ -1,20 +1,15 @@
 <template>
+  <MovieSlider title="Similar Movies" :items="testapi" />
+
   <input type="text" v-model="filters.title" />
-  <MovieSlider title="Similar Movies" :items="[]" />
-  <MovieCard
-    v-for="(movie, index) in testapi"
-    :key="`movie-${index}`"
-    :movie="movie"
-  />
 </template>
 
 <script>
-import MovieCard from "@/components/MovieCard.vue";
-import MovieSlider from "@/components/MovieSlider.vue";
+import MovieSlider from '@/components/MovieSlider.vue'
 
 export default {
-  components: { MovieCard, MovieSlider },
-  data() {
+  components: { MovieSlider },
+  data () {
     return {
       filters: {
         title: "",
