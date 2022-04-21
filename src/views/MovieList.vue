@@ -1,5 +1,5 @@
 <template>
-  <MovieCard v-for="(movie, index) in testapi.data" :key="`movie-${index}`" :movie="testapi.data" />
+  <MovieCard v-for="(movie, index) in testapi" :key="`movie-${index}`" :movie="movie" />
 </template>
 
 <script>
@@ -14,7 +14,8 @@ export default {
     }
   },
   async mounted () {
-    this.testapi = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=5545b123bb0d696c917f4b88dd656165')
+    const docs = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key=5545b123bb0d696c917f4b88dd656165')
+    this.testapi = docs.data.results
   }
 }
 </script>
