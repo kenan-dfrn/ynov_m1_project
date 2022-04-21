@@ -18,12 +18,18 @@ export default {
       testapi: []
     }
   },
-  async mounted () {
-    this.testapi = await this.$Movie.getPopularMovies()
-  }
-}
+  async mounted() {
+    this.testapi = await this.$Movie.getPopularMovies();
+  },
+  watch: {
+    filter: async function () {
+      var movies = await this.$Movie.getPopularMovies();
+      this.testapi = movies.filter((dt) =>
+        dt.title.match(new RegExp(this.filter, "i"))
+      );
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
