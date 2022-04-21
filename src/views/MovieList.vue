@@ -1,6 +1,5 @@
 <template>
   <input type="text" v-model="filter" />
-  <v-text-field label="Another input"></v-text-field>
   <MovieCard
     v-for="(movie, index) in testapi"
     :key="`movie-${index}`"
