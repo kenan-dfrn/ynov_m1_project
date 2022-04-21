@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import MovieSlider from '@/components/MovieSlider.vue'
 import NavBar from '@/components/NavBar.vue'
+import MovieSlider from '@/components/MovieSlider.vue'
+
 
 export default {
   components: { MovieSlider, NavBar },
