@@ -5,8 +5,8 @@
         <RouterLink :to="{ name: 'MovieDetails', params: { id: movie.id }}"><img alt="" class="img-fluid" :src="`https://excellencetheme.com/templates/avastream/images/latest-aditions/01.jpg`"></RouterLink>
         <div class="box-content">
           <ul class="icon">
-            <li><a href="watch-movie.html"><i class="fas fa-play">W</i></a></li>
-            <li><a href="#"><i class="fas fa-plus">+</i></a></li>
+            <li><a><i class="fas fa-play">W</i></a></li>
+            <li><a><i class="fas fa-plus">+</i></a></li>
             <li><RouterLink :to="{ name: 'MovieDetails', params: { id: movie.id }}"><i class="fas fa-info">I</i></RouterLink></li>
           </ul>
         </div>
@@ -16,7 +16,7 @@
       <div class="video-content">
         <h2 class="video-title"><RouterLink :to="{ name: 'MovieDetails', params: { id: movie.id }}">{{ movie.title }}</RouterLink></h2>
         <div class="video-info d-flex align-items-center">
-          <span class="video-year">2021</span> <span class="video-age">+18</span> <span class="video-type">Action</span>
+          <span class="video-year">{{ movie.release_date.slice(0,4)}}</span> <span class="video-type">genres</span>
         </div>
       </div>
       <!-- video Content End -->

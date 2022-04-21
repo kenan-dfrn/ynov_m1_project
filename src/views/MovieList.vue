@@ -1,5 +1,5 @@
 <template>
-  <MovieSlider title="Similar Movies" :items="testapi" />
+  <MovieSlider title="Popular Movies" :items="movieList" />
 
   <input type="text" v-model="filters.title" />
 </template>
@@ -15,17 +15,16 @@ export default {
         title: "",
         genres: null,
       },
-      testapi: [],
+      movieList: [],
     };
   },
   async mounted() {
-    this.testapi = await this.$Movie.getPopularMovies();
-    console.log(this.testapi[0]);
+    this.movieList = await this.$Movie.getPopularMovies();
   },
   watch: {
     "filters.title": async function () {
-      var movies = await this.$Movie.getPopularMovies();
-      this.testapi = movies.filter((dt) =>
+      let movies = await this.$Movie.getPopularMovies();
+      this.movieList = movies.filter((dt) =>
         dt.title.match(new RegExp(this.filters.title, "i"))
       );
     },
@@ -33,4 +32,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
