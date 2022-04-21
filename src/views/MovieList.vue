@@ -1,14 +1,17 @@
 <template>
+  <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
   <MovieSlider title="Popular Movies" :items="movieList" />
 
   <input type="text" v-model="filters.title" />
 </template>
 
 <script>
+import NavBar from '@/components/NavBar.vue'
 import MovieSlider from '@/components/MovieSlider.vue'
 
+
 export default {
-  components: { MovieSlider },
+  components: { MovieSlider, NavBar },
   data () {
     return {
       filters: {
@@ -16,10 +19,13 @@ export default {
         genres: null,
       },
       movieList: [],
+      genres:{},
+      genreId: null
     };
   },
   async mounted() {
     this.movieList = await this.$Movie.getPopularMovies();
+    this.genres = await this.$Genre.getGenreList()
   },
   watch: {
     "filters.title": async function () {
@@ -28,6 +34,11 @@ export default {
         dt.title.match(new RegExp(this.filters.title, "i"))
       );
     },
+  },
+  methods: {
+     async searchByGenre (genreId) {
+        this.testapi = await this.$Movie.getMoviesByGenre(genreId)
+     },
   },
 };
 </script>
