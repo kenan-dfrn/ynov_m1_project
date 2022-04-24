@@ -32,7 +32,7 @@
             </div>
             <!-- Title Block -->
             <div class="details-info mb-4">
-              <span
+              <span v-if="movie.adult"
                 ><i class="icofont-user mr-2" aria-hidden="true"></i> 18+</span
               >
               <span
@@ -41,15 +41,15 @@
               >
               <span
                 ><i class="icofont-simple-smile mr-2" aria-hidden="true"></i>
-                2021</span
+                {{ movie.release_date }}</span
               >
               <span
                 ><i class="icofont-movie mr-2" aria-hidden="true"></i>
-                Action</span
+                {{ getGenres() }}</span
               >
-              <span
-                ><i class="icofont-world mr-2" aria-hidden="true"></i> United
-                States</span
+              <span v-if="movie.production_countries"
+                ><i class="icofont-world mr-2" aria-hidden="true"></i>
+                {{ movie.production_countries[0].iso_3166_1 }}</span
               >
             </div>
             <!-- Details Info -->
@@ -250,6 +250,20 @@ export default {
       baseUrl: "https://image.tmdb.org/t/p/original",
     };
   },
+  methods: {
+    getGenres() {
+      var genres = [];
+      this.movie.genres?.forEach((gr) => {
+        genres.push(gr.name);
+      });
+      return genres.join(", ");
+    },
+  },
+  watch: {
+    movie: async function (value) {
+      //console.log(value);
+    },
+  },
 };
 </script>
 
@@ -332,7 +346,15 @@ img {
   height: auto;
   display: inline-block;
 }
-
+.details-info span {
+  font-size: 16px;
+  text-align: left !important;
+  //color: #a3a3a3;
+  margin-right: 15px;
+  padding-right: 15px;
+  line-height: 12px;
+  display: inline-block;
+}
 /* unstyled */
 .unstyled {
   list-style: none;
