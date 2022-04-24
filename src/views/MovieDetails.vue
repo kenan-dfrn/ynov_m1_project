@@ -5,7 +5,7 @@
     ></RouterLink>
 
     <DetailSection :movie="movie" />
-    <RelatedMovie :relatedMovie="recommendations.slice(0, 6)" />
+    <RelatedMovie :relatedMovie="recommendations?.results?.slice(0, 6)" />
   </div>
 </template>
 
@@ -27,13 +27,16 @@ export default {
     this.movie = await this.$Movie.getMovie(askedId);
     this.recommendations = await this.$Movie.getRecommendations(askedId);
     this.similar = await this.$Movie.getSimilarMovies(askedId);
+
+    console.log("reco");
+    console.log(this.recommendations);
   },
-  watch: {
-    movie: function (value) {
-      console.log("sus");
-      console.log(this.movie);
-    },
-  },
+  // watch: {
+  //   movie: function (value) {
+  //     console.log("sus");
+  //     console.log(this.movie);
+  //   },
+  // },
 };
 </script>
 
