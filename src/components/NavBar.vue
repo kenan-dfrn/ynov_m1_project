@@ -1,8 +1,7 @@
 <template>
     <div class="navbar">
         <GenreList :genres='genres' @searchByGenre='searchByGenre' />
-    </div>
-    
+    </div>   
 </template>
 
 <script>

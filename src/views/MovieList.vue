@@ -41,7 +41,7 @@ export default {
   methods: {
      async searchByGenre (genre) {
         this.genreName = genre[0].name
-        this.pageName
+        this.pageName()
         this.movieList = await this.$Movie.getMoviesByGenre(genre[0].id)
      },
   },
