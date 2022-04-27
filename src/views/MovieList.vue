@@ -1,8 +1,9 @@
 <template>
   <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
-  <MovieSlider title="Popular Movies" :items="movieList" />
-
   <input type="text" v-model="filters.title" />
+  <MovieSlider :title="genreTitle" :items="movieList" />
+
+
 </template>
 
 <script>
@@ -20,7 +21,9 @@ export default {
       },
       movieList: [],
       genres:{},
-      genreId: null
+      genreId: null,
+      genreName: '',
+      genreTitle:'Movies',
     };
   },
   async mounted() {
@@ -36,10 +39,18 @@ export default {
     },
   },
   methods: {
-     async searchByGenre (genreId) {
-        this.testapi = await this.$Movie.getMoviesByGenre(genreId)
+     async searchByGenre (genre) {
+        this.genreName = genre[0].name
+        this.pageName
+        this.movieList = await this.$Movie.getMoviesByGenre(genre[0].id)
      },
   },
+  computed: {
+    pageName() {
+      this.genreTitle = `${this.genreName} Movies`
+      return this.genreTitle
+    }
+  }
 };
 </script>
 

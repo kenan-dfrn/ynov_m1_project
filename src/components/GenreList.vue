@@ -11,7 +11,8 @@ export default {
     data() { return {genreId: null} },
     methods: { 
         searchById () {
-            this.$emit('searchByGenre', this.genreId);
+            const genre = this.genres.filter((genre) => genre.id == this.genreId)
+            this.$emit('searchByGenre', genre);
         },
     }
 }

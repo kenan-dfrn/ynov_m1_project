@@ -13,8 +13,8 @@ export default {
     props: { genres: { type: Object },
     },
     methods: {
-        searchByGenre (genreId) {
-            this.$emit('searchByGenre', genreId);
+        searchByGenre (genre) {
+            this.$emit('searchByGenre', genre);
         },
     }
 }
