@@ -48,7 +48,6 @@ export default {
       this.getMovieList();
     },
     "lazy.params.genres": function (value) {
-      console.log(value);
       if (value == -1) {
         this.genreName = "Popular";
       } else {
