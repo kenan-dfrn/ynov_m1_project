@@ -22,7 +22,7 @@ export default {
       },
       movieList: [],
       genres: [],
-      genreId: null
+      genreId: null,
       genreName: '',
       genreTitle:'Movies',
     };
@@ -41,7 +41,9 @@ export default {
   },
   methods: {
      async searchByGenre (id) {
+       console.log(id);
         this.lazy.params.genre = id
+        this.pageName
         this.movieList = await this.$Movie.getMoviesByGenre(this.lazy.params)
      },
      async searchWithFilter(filter) {
