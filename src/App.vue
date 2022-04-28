@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view :key="$route.fullPath" />
 </template>
 
 <style lang="scss">
@@ -11,11 +11,14 @@ html body {
   line-height: 1.5;
 }
 body {
-  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, sans-serif;
   background-color: #202020 !important;
 }
 
-section, .section-padding, .main-content {
+section,
+.section-padding,
+.main-content {
   padding: 50px 0;
   position: relative;
 }
