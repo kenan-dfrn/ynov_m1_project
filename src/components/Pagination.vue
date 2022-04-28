@@ -8,7 +8,7 @@
             <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li v-for="i in prevPages" :key="`prev-pagination-${i}`" class="page-item"><a class="page-link" v-if="i > 0" @click="goTo(i )">{{ i + 1}}</a></li>
+        <li v-for="i in prevPages" :key="`prev-pagination-${i}`" class="page-item"><a class="page-link" v-if="i >= 0" @click="goTo(i )">{{ i + 1}}</a></li>
         <li class="page-item"><a class="page-link">{{ page + 1 }}</a></li>
         <li v-for="i in nextPages" :key="`next-pagination-${i}`" class="page-item"><a class="page-link" @click="goTo(i)">{{ i + 1}}</a></li>
 

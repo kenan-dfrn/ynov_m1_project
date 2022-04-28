@@ -1,8 +1,8 @@
 <template>
   <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
   <MovieSlider title="Popular Movies" :items="movieList.results" />
-  <Pagination @updatePage="updatePage($event)" :page="filters.page" :totalPages="movieList.total_pages"/>
-  <input type="text" v-model="filters.title" />
+  <Pagination @updatePage="updatePage($event)" :page="lazy.params.page" :totalPages="movieList.total_pages"/>
+  <input type="text" v-model="lazy.params.title" />
 </template>
 
 <script>
@@ -14,10 +14,12 @@ export default {
   components: { MovieSlider, NavBar, Pagination },
   data () {
     return {
-      filters: {
-        title: "",
-        genres: null,
-        page: 0
+      lazy: {
+        params: {
+          title: "",
+          genres: null,
+          page: 0
+        }
       },
       movieList: [],
       genres: [],
@@ -25,14 +27,14 @@ export default {
     };
   },
   async mounted() {
-    this.movieList = await this.$Movie.getPopularMovies();
+    this.movieList = await this.$Movie.getPopularMovies(this.lazy.params);
     this.genres = await this.$Genre.getGenreList()
   },
   watch: {
-    "filters.title": async function () {
+    "lazy.params.title": async function () {
       let movies = await this.$Movie.getPopularMovies();
-      this.movieList = movies.filter((dt) =>
-        dt.title.match(new RegExp(this.filters.title, "i"))
+      this.movieList = movies.results.filter((dt) =>
+        dt.title.match(new RegExp(this.lazy.params.title, "i"))
       );
     },
   },
@@ -40,8 +42,10 @@ export default {
      async searchByGenre (genreId) {
         this.movieList = await this.$Movie.getMoviesByGenre(genreId)
      },
-     updatePage (page) {
-       this.filters.page = page
+     async updatePage (page) {
+        this.lazy.params.page = page
+        let movies = await this.$Movie.getPopularMovies(this.lazy.params);
+        this.movieList = movies.results.filter((dt) => dt.title.match(new RegExp(this.lazy.params.title, "i")));
      }
   },
 };

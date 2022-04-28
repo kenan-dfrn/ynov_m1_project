@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const service = {
-  getPopularMovies: async (filters) => {
+  getPopularMovies: async (params) => {
     const result = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=5545b123bb0d696c917f4b88dd656165`
+      `https://api.themoviedb.org/3/movie/popular?api_key=5545b123bb0d696c917f4b88dd656165`, params
     );
     return result.data;
   },
