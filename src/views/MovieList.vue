@@ -5,7 +5,7 @@
     @searchWithFilter="ChangeFilter"
   />
   <MovieSlider
-    title="Popular Movies"
+    :title="genreName + ' Movies'"
     :items="movieList.results"
     :genres="genres"
   />
@@ -35,6 +35,7 @@ export default {
       },
       movieList: [],
       genres: [],
+      genreName: "Popular"
     };
   },
   async mounted() {
@@ -45,7 +46,13 @@ export default {
     "lazy.params.title": async function () {
       this.getMovieList();
     },
-    "lazy.params.genre": function () {
+    "lazy.params.genre": function (value) {
+      if(value == -1)
+      {
+        this.genreName = 'Popular'
+      } else {
+        this.genreName = this.genres.find(gr => gr.id == value).name
+      }
       this.getMovieList();
     },
     movieList: function (value) {
