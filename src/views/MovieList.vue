@@ -32,22 +32,35 @@ export default {
   },
   watch: {
     "lazy.params.title": async function () {
-      let movies = await this.$Movie.getPopularMovies();
-      this.movieList = movies.results.filter((dt) =>
-        dt.title.match(new RegExp(this.lazy.params.title, "i"))
-      );
+      this.getMovieList()
     },
   },
   methods: {
      async searchByGenre (id) {
         this.lazy.params.genre = id
-        this.movieList = await this.$Movie.getMoviesByGenre(this.lazy.params)
+        this.getMovieList()
      },
      async updatePage (page) {
         this.lazy.params.page = page
-        this.movieList = await this.$Movie.getPopularMovies(this.lazy.params);
-        //this.movieList = movies.results.filter((dt) => dt.title === this.lazy.params.title);
-     }
+        this.getMovieList()
+     },
+     async getMovieList () {
+       let movies = []
+       if (this.lazy.params.genre >= 0) {
+         movies = await this.$Movie.getMoviesByGenre(this.lazy.params);
+       } else {
+         movies = await this.$Movie.getPopularMovies(this.lazy.params);
+       }
+      
+      if (this.lazy.params.title) {
+        movies.results = movies.results.filter((dt) =>
+          dt.title.match(new RegExp(this.lazy.params.title, "i"))
+        );
+      }
+
+      console.log(movies.results)
+      this.movieList = movies
+    }
   },
 };
 </script>
