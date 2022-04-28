@@ -67,10 +67,7 @@
               <!-- Person Block -->
               <div class="person-block">
                 <h5 class="title">Cast</h5>
-                <p>
-                  Christian Bale, Michael Cain, Gary Oldman, Anne Hathway, Tom
-                  Hardy, Marion Cotillard
-                </p>
+                <p>{{ getCast() }}...</p>
               </div>
               <!-- Person Block -->
             </div>
@@ -244,6 +241,10 @@ export default {
       type: Object,
       required: true,
     },
+    cast: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -252,16 +253,18 @@ export default {
   },
   methods: {
     getGenres() {
-      var genres = [];
+      let genres = [];
       this.movie.genres?.forEach((gr) => {
         genres.push(gr.name);
       });
       return genres.join(", ");
     },
-  },
-  watch: {
-    movie: async function (value) {
-      //console.log(value);
+    getCast() {
+      let actors = [];
+      this.cast?.forEach((gr) => {
+        actors.push(gr.name);
+      });
+      return actors.join(", ");
     },
   },
 };
