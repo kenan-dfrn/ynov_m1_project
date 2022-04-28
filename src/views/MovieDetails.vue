@@ -1,8 +1,6 @@
 <template>
   <div>
-    <RouterLink :to="{ name: 'Movies' }"
-      ><i class="icofont-arrow-left"></i
-    ></RouterLink>
+    <RouterLink :to="{ name: 'Movies' }"><i class="icofont-arrow-left"></i></RouterLink>
 
     <DetailSection :movie="movie" :cast="credit?.cast?.slice(0, 6)" />
     <RelatedMovie :relatedMovie="recommendations?.results?.slice(0, 6)" />
@@ -25,12 +23,21 @@ export default {
   },
   async mounted() {
     const askedId = this.$route.params.id;
-    this.movie = await this.$Movie.getMovie(askedId);
+    this.getMovieData(askedId)
     this.recommendations = await this.$Movie.getRecommendations(askedId);
     this.similar = await this.$Movie.getSimilarMovies(askedId);
 
     this.credit = await this.$Movie.getCreditMovie(askedId);
   },
+  methods: {
+    async getMovieData (id) {
+      let data = await this.$Movie.getMovie(id);
+      let date = new Date(null);
+      date.setMinutes(data.runtime); // specify value for SECONDS here
+      data.runtime = date.toISOString().substr(11, 8);
+      this.movie = data
+    }
+  }
 };
 </script>
 

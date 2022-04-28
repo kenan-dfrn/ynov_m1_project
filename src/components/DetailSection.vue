@@ -36,8 +36,7 @@
                 ><i class="icofont-user mr-2" aria-hidden="true"></i> 18+</span
               >
               <span
-                ><i class="icofont-clock-time mr-2" aria-hidden="true"></i> 2hr
-                45min</span
+                ><i class="icofont-clock-time mr-2" aria-hidden="true"></i> {{ movie.runtime}}</span
               >
               <span
                 ><i class="icofont-simple-smile mr-2" aria-hidden="true"></i>

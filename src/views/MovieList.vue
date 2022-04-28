@@ -23,7 +23,6 @@ export default {
       },
       movieList: [],
       genres: [],
-      genreId: null
     };
   },
   async mounted() {
@@ -58,7 +57,6 @@ export default {
         );
       }
 
-      console.log(movies.results)
       this.movieList = movies
     }
   },
