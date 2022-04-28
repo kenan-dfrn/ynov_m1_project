@@ -35,7 +35,7 @@
           >
         </h2>
         <div class="video-info d-flex align-items-center">
-          <span class="video-year">{{ movie.release_date.slice(0, 4) }}</span>
+          <span class="video-year">{{ movie.release_date ? movie.release_date.slice(0, 4) : '' }}</span>
           <span class="video-type">{{ getGenres(movie.genre_ids) }}</span>
         </div>
       </div>

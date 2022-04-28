@@ -51,7 +51,9 @@ export default {
     nextPages () {
       let pages = []
       for (let i = 1; i <= 3; i++) {
-        pages.push(this.page + i)
+        //if (!(this.page + i >= this.totalPages)) {
+          pages.push(this.page + i)
+        //}
       }
       return pages
     }

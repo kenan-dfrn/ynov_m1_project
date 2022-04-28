@@ -39,11 +39,12 @@ export default {
     };
   },
   async mounted() {
-    this.getMovieList();
+    this.getMovieList()
     this.genres = await this.$Genre.getGenreList();
   },
   watch: {
     "lazy.params.title": async function () {
+      this.lazy.params.page = 0
       this.getMovieList();
     },
     "lazy.params.genre": function (value) {
@@ -53,12 +54,16 @@ export default {
       } else {
         this.genreName = this.genres.find(gr => gr.id == value).name
       }
+      this.lazy.params.page = 0
       this.getMovieList();
-    },
+    }
   },
   methods: {
     async searchByGenre(id) {
-      this.lazy.params.genre = id;
+      this.lazy.params.genres = id;
+      this.lazy.params.title = "";
+      this.lazy.params.page = 0;
+      this.getMovieList();
     },
     async updatePage(page) {
       this.lazy.params.page = page;
@@ -66,22 +71,20 @@ export default {
     },
     async getMovieList() {
       let movies = [];
-      if (this.lazy.params.genre >= 0) {
+      if (this.lazy.params.title.length >= 1) {
+        movies = await this.$Movie.getMovieByName(this.lazy.params)
+      } else if (this.lazy.params.genres >= 0) {
         movies = await this.$Movie.getMoviesByGenre(this.lazy.params);
       } else {
         movies = await this.$Movie.getPopularMovies(this.lazy.params);
-      }
-
-      if (this.lazy.params.title) {
-        movies.results = movies.results.filter((dt) =>
-          dt.title.match(new RegExp(this.lazy.params.title, "i"))
-        );
       }
 
       this.movieList = movies;
     },
     async ChangeFilter(filter) {
       this.lazy.params.title = filter;
+      this.lazy.params.genres = null;
+      this.lazy.params.page = 0;
     },
   },
 };
