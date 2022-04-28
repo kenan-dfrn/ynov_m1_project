@@ -39,13 +39,14 @@ export default {
     },
   },
   methods: {
-     async searchByGenre (genreId) {
-        this.movieList = await this.$Movie.getMoviesByGenre(genreId)
+     async searchByGenre (id) {
+        this.lazy.params.genre = id
+        this.movieList = await this.$Movie.getMoviesByGenre(this.lazy.params)
      },
      async updatePage (page) {
         this.lazy.params.page = page
-        let movies = await this.$Movie.getPopularMovies(this.lazy.params);
-        this.movieList = movies.results.filter((dt) => dt.title.match(new RegExp(this.lazy.params.title, "i")));
+        this.movieList = await this.$Movie.getPopularMovies(this.lazy.params);
+        //this.movieList = movies.results.filter((dt) => dt.title === this.lazy.params.title);
      }
   },
 };
