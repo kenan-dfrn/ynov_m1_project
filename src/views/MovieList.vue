@@ -2,7 +2,6 @@
   <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
   <MovieSlider title="Popular Movies" :items="movieList.results" />
   <Pagination @updatePage="updatePage($event)" :page="lazy.params.page" :totalPages="movieList.total_pages"/>
-  <input type="text" v-model="lazy.params.title" />
 </template>
 
 <script>
@@ -24,6 +23,8 @@ export default {
       movieList: [],
       genres: [],
       genreId: null
+      genreName: '',
+      genreTitle:'Movies',
     };
   },
   async mounted() {
@@ -43,12 +44,25 @@ export default {
         this.lazy.params.genre = id
         this.movieList = await this.$Movie.getMoviesByGenre(this.lazy.params)
      },
+     async searchWithFilter(filter) {
+       console.log(filter)
+        let movies = await this.$Movie.getPopularMovies();
+        this.movieList = movies.filter((dt) =>
+        dt.title.match(new RegExp(filter, "i"))
+        );
+     },
      async updatePage (page) {
         this.lazy.params.page = page
         this.movieList = await this.$Movie.getPopularMovies(this.lazy.params);
         //this.movieList = movies.results.filter((dt) => dt.title === this.lazy.params.title);
      }
   },
+  computed: {
+    pageName() {
+      this.genreTitle = `${this.genreName} Movies`
+      return this.genreTitle
+    }
+  }
 };
 </script>
 
