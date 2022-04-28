@@ -1,18 +1,22 @@
 <template>
   <NavBar  :genres="genres" @searchByGenre="searchByGenre"/>
-  <MovieSlider title="Popular Movies" :items="movieList.results" />
+  <MovieSlider
+    :items="movieList.results"
+    :genres="genres"
+  />
+    title="Popular Movies"
   <Pagination @updatePage="updatePage($event)" :page="lazy.params.page" :totalPages="movieList.total_pages"/>
   <input type="text" v-model="lazy.params.title" />
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import MovieSlider from '@/components/MovieSlider.vue'
-import Pagination from '@/components/Pagination.vue'
+import NavBar from "@/components/NavBar.vue";
+import MovieSlider from "@/components/MovieSlider.vue";
+import Pagination from "@/components/Pagination.vue";
 
 export default {
   components: { MovieSlider, NavBar, Pagination },
-  data () {
+  data() {
     return {
       lazy: {
         params: {
@@ -32,6 +36,9 @@ export default {
   watch: {
     "lazy.params.title": async function () {
       this.getMovieList()
+    },
+    movieList: function (value) {
+      console.log(value);
     },
   },
   methods: {
@@ -63,6 +70,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
