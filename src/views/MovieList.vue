@@ -35,7 +35,7 @@ export default {
     };
   },
   async mounted() {
-    this.movieList = await this.$Movie.getPopularMovies(this.lazy.params);
+    this.getMovieList()
     this.genres = await this.$Genre.getGenreList();
   },
   watch: {
