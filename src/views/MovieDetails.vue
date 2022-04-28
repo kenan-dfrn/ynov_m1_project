@@ -4,7 +4,7 @@
       ><i class="icofont-arrow-left"></i
     ></RouterLink>
 
-    <DetailSection :movie="movie" />
+    <DetailSection :movie="movie" :cast="credit?.cast?.slice(0, 6)" />
     <RelatedMovie :relatedMovie="recommendations?.results?.slice(0, 6)" />
   </div>
 </template>
@@ -20,6 +20,7 @@ export default {
       movie: {},
       recommendations: [],
       similar: [],
+      credit: {},
     };
   },
   async mounted() {
@@ -28,15 +29,8 @@ export default {
     this.recommendations = await this.$Movie.getRecommendations(askedId);
     this.similar = await this.$Movie.getSimilarMovies(askedId);
 
-    console.log("reco");
-    console.log(this.recommendations);
+    this.credit = await this.$Movie.getCreditMovie(askedId);
   },
-  // watch: {
-  //   movie: function (value) {
-  //     console.log("sus");
-  //     console.log(this.movie);
-  //   },
-  // },
 };
 </script>
 
