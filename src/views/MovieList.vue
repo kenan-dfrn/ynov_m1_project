@@ -38,7 +38,7 @@ export default {
     };
   },
   async mounted() {
-    this.getMovieList()
+    this.getMovieList();
     this.genres = await this.$Genre.getGenreList();
   },
   watch: {
@@ -47,9 +47,6 @@ export default {
     },
     "lazy.params.genre": function () {
       this.getMovieList();
-    },
-    movieList: function (value) {
-      console.log(value);
     },
   },
   methods: {

@@ -92,11 +92,6 @@ export default {
       return genreNames.map((gr) => gr.name).join(", ");
     },
   },
-  watch: {
-    relatedMovie: async function (value) {
-      //console.log(value);
-    },
-  },
 };
 </script>
 
