@@ -35,28 +35,28 @@ export default {
       },
       movieList: [],
       genres: [],
-      genreName: "Popular"
+      genreName: "Popular",
     };
   },
   async mounted() {
-    this.getMovieList()
+    this.getMovieList();
     this.genres = await this.$Genre.getGenreList();
   },
   watch: {
     "lazy.params.title": async function () {
-      this.lazy.params.page = 0
+      this.lazy.params.page = 0;
       this.getMovieList();
     },
-    "lazy.params.genre": function (value) {
-      if(value == -1)
-      {
-        this.genreName = 'Popular'
+    "lazy.params.genres": function (value) {
+      console.log(value);
+      if (value == -1) {
+        this.genreName = "Popular";
       } else {
-        this.genreName = this.genres.find(gr => gr.id == value).name
+        this.genreName = this.genres.find((gr) => gr.id == value).name;
       }
-      this.lazy.params.page = 0
+      this.lazy.params.page = 0;
       this.getMovieList();
-    }
+    },
   },
   methods: {
     async searchByGenre(id) {
@@ -72,7 +72,7 @@ export default {
     async getMovieList() {
       let movies = [];
       if (this.lazy.params.title.length >= 1) {
-        movies = await this.$Movie.getMovieByName(this.lazy.params)
+        movies = await this.$Movie.getMovieByName(this.lazy.params);
       } else if (this.lazy.params.genres >= 0) {
         movies = await this.$Movie.getMoviesByGenre(this.lazy.params);
       } else {
