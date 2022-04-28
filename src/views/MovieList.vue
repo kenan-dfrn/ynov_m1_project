@@ -1,5 +1,9 @@
 <template>
-  <NavBar :genres="genres" @searchByGenre="searchByGenre" />
+  <NavBar
+    :genres="genres"
+    @searchByGenre="searchByGenre"
+    @searchWithFilter="ChangeFilter"
+  />
   <MovieSlider
     title="Popular Movies"
     :items="movieList.results"
@@ -11,7 +15,6 @@
     :page="lazy.params.page"
     :totalPages="movieList.total_pages"
   />
-  <input type="text" v-model="lazy.params.title" />
 </template>
 
 <script>
@@ -42,6 +45,9 @@ export default {
     "lazy.params.title": async function () {
       this.getMovieList();
     },
+    "lazy.params.genre": function () {
+      this.getMovieList();
+    },
     movieList: function (value) {
       console.log(value);
     },
@@ -49,7 +55,6 @@ export default {
   methods: {
     async searchByGenre(id) {
       this.lazy.params.genre = id;
-      this.getMovieList();
     },
     async updatePage(page) {
       this.lazy.params.page = page;
@@ -70,6 +75,9 @@ export default {
       }
 
       this.movieList = movies;
+    },
+    async ChangeFilter(filter) {
+      this.lazy.params.title = filter;
     },
   },
 };
