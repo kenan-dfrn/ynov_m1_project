@@ -9,7 +9,7 @@
                             <label class="label-navbar ">Genre :</label>
                             <GenreList :genres='genres' @searchByGenre='searchByGenre' />
                             <label class="label-navbar">Rechercher :</label>
-                            <input class='form-input' type="text" placeholder="Rechercher un film" />
+                            <input class='form-input' type="text" v-model="filters.title" placeholder="Rechercher un film" />
                         </div>
                     </nav>
                 </div>
@@ -23,13 +23,31 @@
 import GenreList from './GenreList.vue'
 
 export default {
+    data () {
+        return {
+            filters: {
+                title: "",
+                genres: null,
+            },
+            movieList: [],
+        };
+    },
     components : { GenreList },
     props: { genres: { type: Object },
+    },
+    watch: {
+        "filters.title": async function () {
+            this.searchWithFilter(this.filters.title)
+        },
     },
     methods: {
         searchByGenre (genre) {
             this.$emit('searchByGenre', genre);
         },
+        searchWithFilter(filter)
+        {
+            this.$emit('searchWithFilter', filter)
+        }
     }
 }
 </script>
@@ -54,8 +72,8 @@ export default {
     .form-input{
         background-color: #474343;
         border:1px solid white !important;
-        color:white
-        
+        color:white;
+        border-radius: 6px;
     }
     .form-input::placeholder{
         color:white
