@@ -1,5 +1,5 @@
 <template>
-    <select v-model="genreId" @change="searchById">
+    <select class='form-input' v-model="genreId" @change="searchById">
         <option value="-1" >Popular</option>
         <option v-for="genreItem in genres" :key="genreItem.id" :value="genreItem.id" >{{ genreItem.name }}</option>
     </select>
@@ -16,3 +16,19 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .form-input {
+    background-color: #474343;
+    border: 1px solid white !important;
+    color: white;
+    border-radius: 6px;
+    margin-right: 15px;
+    }
+    .form-input::placeholder {
+    color: white;
+    }
+    .form-input:focus {
+    outline: none !important ;
+    }
+</style>
