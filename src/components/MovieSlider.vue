@@ -6,6 +6,7 @@
     <div class="col-12">
       <div class="row">
         <MovieCard
+          :genres="genres"
           v-for="(item, index) in items"
           :key="`item-${title.replaceAll(' ', '-')}-${index}`"
           :movie="item"
@@ -23,6 +24,9 @@ export default {
   props: {
     title: { type: String },
     items: { type: Array, default: [] },
+    genres: {
+      type: Array,
+    },
   },
 };
 </script>

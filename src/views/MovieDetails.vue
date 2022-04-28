@@ -3,7 +3,10 @@
     <RouterLink :to="{ name: 'Movies' }"><i class="icofont-arrow-left"></i></RouterLink>
 
     <DetailSection :movie="movie" :cast="credit?.cast?.slice(0, 6)" />
-    <RelatedMovie :relatedMovie="recommendations?.results?.slice(0, 6)" />
+    <RelatedMovie
+      :relatedMovie="recommendations?.results?.slice(0, 6)"
+      :genres="genres"
+    />
   </div>
 </template>
 
@@ -19,6 +22,7 @@ export default {
       recommendations: [],
       similar: [],
       credit: {},
+      genres: [],
     };
   },
   async mounted() {
@@ -26,6 +30,8 @@ export default {
     this.getMovieData(askedId)
     this.recommendations = await this.$Movie.getRecommendations(askedId);
     this.similar = await this.$Movie.getSimilarMovies(askedId);
+
+    this.genres = await this.$Genre.getGenreList();
 
     this.credit = await this.$Movie.getCreditMovie(askedId);
   },

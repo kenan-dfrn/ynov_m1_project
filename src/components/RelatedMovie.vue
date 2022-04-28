@@ -49,9 +49,11 @@
                 </RouterLink>
               </h2>
               <div class="video-info d-flex align-items-center">
-                <span class="video-year">{{ item.release_date }}</span>
+                <span class="video-year">{{
+                  item.release_date.slice(0, 4)
+                }}</span>
                 <span v-if="item.adult" class="video-age">+18</span>
-                <span class="video-type">{{ getGenres(item) }}</span>
+                <span class="video-type">{{ getGenres(item.genre_ids) }}</span>
               </div>
             </div>
             <!-- video Content End -->
@@ -73,6 +75,10 @@ export default {
       type: Array,
       required: true,
     },
+    genres: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -80,23 +86,26 @@ export default {
     };
   },
   methods: {
-    getGenres(movie) {
-      var genres = [];
-      movie.genres?.forEach((gr) => {
-        genres.push(gr.name);
-      });
-      return genres.join(", ");
+    getGenres(genreIds) {
+      var genreNames = this.genres.filter((gr) => genreIds.includes(gr.id));
+
+      return genreNames.map((gr) => gr.name).join(", ");
     },
   },
   watch: {
     relatedMovie: async function (value) {
-      console.log(value);
+      //console.log(value);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.video-type {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .video-block {
   margin-bottom: 30px;
 }
